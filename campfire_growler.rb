@@ -3,6 +3,16 @@ require 'ruby-growl'
 require 'tinder'
 include ActiveSupport::CoreExtensions::Array::Conversions
 
+# Example use
+#
+# c = CampfireGrowler.new :account => 'mycampfire', 
+#   :username => 'mklaurence@gmail.com', 
+#   :password => 'password', 
+#   :room => 'Room Of Champions', 
+#   :test_mode => false
+# c.interval = 6
+#
+
 class CampfireGrowler
   
   attr_accessor :test_mode
@@ -14,8 +24,8 @@ class CampfireGrowler
     @campfire.login params[:username], params[:password]
     @room = @campfire.find_room_by_name params[:room]
     @users = []
-    
-    @growl = Growl.new "localhost", "ruby-growl", [growl_name]
+
+    @growl = Growl.new "localhost", "ruby-growl", ["ruby-growl Notification"]
     
     interval = params[:interval] if params[:interval]
   end
@@ -25,7 +35,7 @@ class CampfireGrowler
       current_users = @room.users.collect { |u| u.match(/\>[\w\s]+\</) }.compact.collect { |u| u.to_s[1..-2] }
       notify current_users - @users, "in to"
       notify @users - current_users, "out of"
-      puts "#{prefix} No change." if @test_mode and current_users == @users
+      puts "[#{header}] No change." if @test_mode and current_users == @users
     
       @users = current_users || []
       sleep seconds
@@ -34,21 +44,18 @@ class CampfireGrowler
   
   def notify(users, phrase)
     if users and users.size > 0
-      str = "#{prefix} #{users.to_sentence} #{users.size > 1 ? 'have' : 'has'} logged #{phrase} room #{@room.name}."
+      str = "#{users.to_sentence} #{users.size > 1 ? 'have' : 'has'} logged #{phrase} room #{@room.name}."
       if @test_mode
-        puts str
+        puts "[#{header}] #{str}"
       else
-        @growl.notify growl_name, "Check your posture, fool.", "Translation: SIT UP!"
+        puts "trying"
+        @growl.notify "ruby-growl Notification", "#{header}", str
       end
     end
   end
   
-  def prefix
-    "[Campfire: #{@account}]"
-  end
-  
-  def growl_name
-    "#{prefix} #{@room.name} Notification"
+  def header
+    "Campfire: #{@account}"
   end
   
 end
