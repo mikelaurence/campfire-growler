@@ -34,7 +34,7 @@ The preferred way to initialize programs at boot time in Mac OS is to use a Laun
     		<key>Nice</key>
     		<integer>1</integer>
     		<key>StartInterval</key>
-    		<integer>360</integer>
+    		<integer>60</integer>
     	</dict>
     </plist>
 
@@ -43,6 +43,8 @@ Replace the first ProgramArgument with your path to Ruby, but be careful - I hav
 Finally, run:
     sudo launchctl load campfire-growler.plist
     sudo launchctl start campfire-growler.plist
+    
+Note that in the above plist, the StartInterval property is set, thus causing the ruby file to be run periodically. This would assume you are not supplying an interval to the CampfireGrowler object. If you do supply an interval, the growler will run itself in a periodical nature (using a while loop and the sleep command). Basically, the first way costs more in CPU bursts (because ruby & rubygems must be loaded on each call), whereas the second way will cost memory by keeping itself loaded. If you prefer to receive updates with any regularity (which is likely), you'll probably just want to keep it in memory, so take out the StartInterval line and its following integer line, and add an interval option to your CampfireGrowler initialization.
 
 ## LICENSE:
 
