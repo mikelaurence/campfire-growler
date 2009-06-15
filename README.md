@@ -1,6 +1,7 @@
 # Campfire Growl Notifier
 
 ## Sample Use
+    $LOAD_PATH << '/src/ruby/campfire_growler' # Needs path to the library since this isn't gem-i-fied
     require 'campfire_growler'
 
     # Automatically starts up once instantiated
