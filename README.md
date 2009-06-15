@@ -1,6 +1,7 @@
 # Campfire Growl Notifier
 
 ## Sample Use
+    require 'campfire_growler'
 
     # Automatically starts up once instantiated
     CampfireGrowler.new :account => 'mycampfire', 
