@@ -28,7 +28,7 @@ The preferred way to initialize programs at boot time in Mac OS is to use a Laun
     		<string>Campfire Growler</string>
     		<key>ProgramArguments</key>
     		<array>
-    			<string>/opt/local/bin/ruby</string>
+    			<string>/usr/local/bin/ruby</string>
     			<string>/Users/myuser/src/ruby/campfire-growler/mycampfire.rb</string>
     		</array>
     		<key>LowPriorityIO</key>
@@ -40,7 +40,7 @@ The preferred way to initialize programs at boot time in Mac OS is to use a Laun
     	</dict>
     </plist>
 
-Replace the first ProgramArgument with your path to Ruby, but be careful - I have four ruby binaries on my system (according to 'where'), and only one worked with rubygems (you may want to try running your file using the full ruby path before rebooting to see if it works). The second ProgramArgument is the path to the file containing your CampfireGrowler instantiation.
+Replace the first ProgramArgument with your path to Ruby. The second ProgramArgument should contain the path to the file containing your CampfireGrowler instantiation.
 
 Finally, run:
     sudo launchctl load campfire-growler.plist
