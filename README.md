@@ -7,7 +7,8 @@
     CampfireGrowler.new :account => 'mycampfire', 
       :username => 'mklaurence@gmail.com', 
       :password => 'password', 
-      :room => 'Room Of Champions'
+      :room => 'Room Of Champions',
+      :interval => 120
 
 ## Notes
 
